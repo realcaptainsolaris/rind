@@ -1,12 +1,3 @@
-/*
- The highlight_match function takes a file name and a search pattern as input, and returns an optional string with the matched pattern highlighted in green using ANSI escape codes. If the file name doesn't contain the pattern, the function returns None.
-
-The find_files function has been modified to use highlight_match to highlight the matched patterns in the file names. The modified function constructs the full path of each matching file by concatenating the directory path, the file name with the matched pattern highlighted, and a newline character.
-
-Finally, the display_files function now takes the search pattern as an input, and calls highlight_match on each file path before printing it. If the highlight_match function returns a Some value, indicating that the file name contains the search pattern, the function prints the highlighted file name. Otherwise, it prints the original file name as-is.
- *
- */
-
 use std::env;
 use std::fs;
 use std::path::Path;
