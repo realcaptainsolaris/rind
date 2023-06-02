@@ -30,13 +30,15 @@ fn find_files(dir: &Path, pattern: &str) -> Vec<String> {
                     files.append(&mut sub_files);
                 } else if let Some(file_name) = path.file_name() {
                     // check if the file name matches the search pattern
-                    if let Some(colored_file_name) = highlight_match(file_name, pattern) {
-                        let full_path = path.to_string_lossy().into_owned();
-                        files.push(format!(
-                            "{}{}",
-                            &full_path[..full_path.len() - file_name.to_string_lossy().len()],
-                            colored_file_name
-                        ));
+                    if let Some(finn) = file_name.to_str() {
+                        if let Some(colored_file_name) = highlight_match(finn, pattern) {
+                            let full_path = path.to_string_lossy().into_owned();
+                            files.push(format!(
+                                "{}{}",
+                                &full_path[..full_path.len() - file_name.to_string_lossy().len()],
+                                colored_file_name
+                            ));
+                        }
                     }
                 }
             }
@@ -62,8 +64,7 @@ fn highlight_match(file: &str, pattern: &str) -> Option<String> {
             "{}{}{}",
             &file[..match_start],
             "\x1b[32m",
-            &file[match_start..match_end],
-            "\x1b[0m"
+            &file[match_start..match_end]
         );
         Some(colored_file)
     } else {
